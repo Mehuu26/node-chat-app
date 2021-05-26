@@ -11,7 +11,7 @@ pipeline {
         stage('Build') { 
             steps {
                 echo 'building'
-                sh 'npm install'
+                sh 'pm install'
                 
             }
             post {
