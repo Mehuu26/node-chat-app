@@ -45,7 +45,7 @@ pipeline {
         	success {
             		echo 'tests succeed'
         	}
-    		}
+    		
         }
 
 	stage('Deploy') {
