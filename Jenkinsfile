@@ -47,7 +47,27 @@ pipeline {
         	}
     		}
         }
+
+	stage('Deploy') {
+            steps {
+                echo 'Deploying'
+                sh 'docker build -t deploy -f Dockerfile-deploy .'
+            }
+            post {
+        	failure {
+            		emailext attachLog: true,
+                	body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}",
+                	to: 'stawarskimichal1@gmail.com',
+                	subject: "deploy failed"
+        	}
+        	success {
+            		emailext attachLog: true,
+                	body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}",
+                	to: 'stawarskimichal1@gmail.com',
+                	subject: "deploy succeed"
+        	}
+    		}
+        }
     }
 
-    
 }
