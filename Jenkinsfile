@@ -32,11 +32,11 @@ pipeline {
 
         stage('Test') { 
             steps {
-                echo 'Testing..'
+                echo 'testing..'
                 sh 'npm run test'
             }
             post {
-        	failure {
+		failure {
             		emailext attachLog: true,
                 	body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}",
                 	to: 'stawarskimichal1@gmail.com',
@@ -44,13 +44,14 @@ pipeline {
         	}
         	success {
             		echo 'tests succeed'
-        	}
+		}
     		
-        }
+        	}
+	}
 
 	stage('Deploy') {
             steps {
-                echo 'Deploying'
+                echo 'deploying..'
                 sh 'docker build -t deploy -f Dockerfile-deploy .'
             }
             post {
